@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*.ts"]
+}
+
+/*
+  In Visual Studio Code, we can enable proper file autocompletion for TypeScript projects using ESM (ECMAScript modules) by configuring the jsconfig.json file.
+  The jsconfig.json file allows us to specify JavaScript (including TypeScript) project settings, including module resolution.
+*/
