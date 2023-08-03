@@ -6,7 +6,8 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
-    ".readme": true
+    ".readme": true,
+    "**/*.map": true
   },
   "explorerExclude.backup": {},
   "cSpell.words": ["swcrc"]
