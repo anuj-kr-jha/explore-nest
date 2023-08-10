@@ -1,20 +1,10 @@
-import {
-  IsDate,
-  IsEnum,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-  Length,
-  Max,
-  Min,
-  Matches,
-} from 'class-validator';
-import { ETaskStatus } from '../task.js';
+import { IsEnum, IsNotEmpty, IsNumber, IsString, Length, Max, Min, Matches } from 'class-validator';
+import { ETaskStatus } from '../task.d.js';
 export class CreateTaskDto {
   @IsNotEmpty()
   @IsString()
-  @Matches(/^(?=.{0,10}$)[A-Za-z0-9\-_]+$/, {
-    message: 'Invalid format or length(max: 10)',
+  @Matches(/^[a-zA-Z0-9 ]{0,10}$/, {
+    message: `title should match the pattern: $constraint1 but received value: $value not matching pattern`,
   })
   title: string;
 
@@ -30,7 +20,4 @@ export class CreateTaskDto {
   @Max(10)
   @Min(0)
   priority: number;
-
-  @IsDate()
-  createdAt: Date;
 }

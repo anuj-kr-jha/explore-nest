@@ -3,7 +3,7 @@ import { IsEnum, IsNumber, IsString, Length, Max, Min, Matches, IsOptional } fro
 import { CreateTaskDto } from './create-task.dto.js';
 import { ETaskStatus } from '../task.d.js';
 
-export class UpdateTaskDto extends PartialType(CreateTaskDto) {
+export class FindTaskDto extends PartialType(CreateTaskDto) {
   @IsOptional()
   @IsString()
   @Matches(/^(?=.{0,10}$)[A-Za-z0-9\-_]+$/, {

@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTaskDto } from './dto/create-task.dto.js';
-import { UpdateTaskDto } from './dto/update-task.dto.js';
-
+import { ITask } from './task.d.js';
+import { v4 as uuid } from 'uuid';
 @Injectable()
 export class TasksService {
-  create(CreateTaskDto: CreateTaskDto) {
-    return 'This action adds a new task';
+  readonly #tasks: ITask[] = [];
+
+  create(_task: Omit<ITask, 'id' | 'createdAt'>) {
+    const task = { id: uuid(), ..._task, createdAt: new Date() };
+    this.#tasks.push(task);
+    return this.#tasks;
   }
 
-  findAll() {
-    return `This action returns all tasks`;
+  findAll(query: Partial<ITask>) {
+    return this.#tasks;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} task`;
+  findOne(id: string) {
+    return this.#tasks.find((task) => task.id === id);
   }
 
-  update(id: number, UpdateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  update(id: string, props: Partial<Omit<ITask, 'id'>>) {
+    const task = this.#tasks.find((task) => task.id === id);
+    if (task) Object.assign(task, props);
+    return task;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  remove(id: string) {
+    const task = this.#tasks.find((task) => task.id === id);
+    if (task) this.#tasks.splice(this.#tasks.indexOf(task), 1);
+    return task;
   }
 }
