@@ -7,8 +7,9 @@ import { log } from 'console';
 
 @UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
 @Controller({ path: 'tasks' })
-export class tasksController {
+export class TasksController {
   readonly #tasksService: TasksService;
+
   constructor(tasksService: TasksService) {
     this.#tasksService = tasksService;
   }

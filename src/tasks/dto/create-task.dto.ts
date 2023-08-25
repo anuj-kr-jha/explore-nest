@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsNumber, IsString, Length, Max, Min, Matches } from 'class-validator';
-import { ETaskStatus } from '../task.d.js';
+import { ETaskStatus } from '../tasks.interface.js';
 export class CreateTaskDto {
   @IsNotEmpty()
   @IsString()

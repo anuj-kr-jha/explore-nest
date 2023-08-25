@@ -8,7 +8,11 @@
       "dynamicImport": true
     },
     "baseUrl": "./",
-    "target": "esnext"
+    "target": "esnext",
+    "preserveAllComments": false,
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "minify": false,
   "module": { "type": "es6" }

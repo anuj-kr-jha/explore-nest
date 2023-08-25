@@ -1,14 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ITask } from './task.d.js';
 import { v4 as uuid } from 'uuid';
+import { ITask } from './tasks.interface.js';
 
 @Injectable()
 export class TasksService {
   readonly #tasks: ITask[] = [];
 
-  create(_task: Omit<ITask, 'id' | 'createdAt'>) {
-    const task = { id: uuid(), ..._task, createdAt: new Date() };
-    this.#tasks.push(task);
+  create(task: Omit<ITask, 'id' | 'createdAt'>) {
+    this.#tasks.push({ id: uuid(), ...task, createdAt: new Date() });
     return this.#tasks;
   }
 
