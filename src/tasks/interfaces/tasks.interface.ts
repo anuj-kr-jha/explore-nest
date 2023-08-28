@@ -1,3 +1,4 @@
+// - import type { ObjectId } from 'mongodb';
 export enum ETaskStatus {
   OPEN = 'OPEN',
   IN_PROGRESS = 'IN_PROGRESS',
@@ -5,7 +6,7 @@ export enum ETaskStatus {
 }
 
 export interface ITask {
-  id: string;
+  // -  _id: ObjectId; // handled via WithId<T>
   title: string;
   description: string;
   priority: number;

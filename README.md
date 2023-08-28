@@ -6,3 +6,5 @@
 4. [Cli](./.readme/3.cli.md)
 5. [Controller](./.readme/4.controller.md)
 6. [Provider](./.readme/5.provider.md)
+7. [Modules](./.readme/6.modules.md)
+8. [MIddleware](./.readme/7.middleware.md)
