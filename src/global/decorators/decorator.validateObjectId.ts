@@ -11,7 +11,7 @@ export function ValidateObjectIdField(fieldName = '', position = 0) {
 
       if (typeof arg === 'string') fieldValue = arg;
       else if (typeof arg === 'object' && arg.hasOwnProperty(fieldName)) fieldValue = arg[fieldName];
-      else throw new BadRequestException(`Invalid ${fieldName} field`);
+      else throw new BadRequestException(`Invalid ${fieldName || 'Id'}`);
 
       try {
         const objectId = new ObjectId(fieldValue);
@@ -24,8 +24,8 @@ export function ValidateObjectIdField(fieldName = '', position = 0) {
         arg[fieldName] = objectId;
         return originalMethod.apply(this, args);
       } catch (error) {
-        console.error(error?.message, error?.stack);
-        throw new BadRequestException(`Invalid ${fieldName} field`);
+        // console.error(error?.message, error?.stack);
+        throw new BadRequestException(`Invalid ${fieldName || 'Id'}`);
       }
     };
   };

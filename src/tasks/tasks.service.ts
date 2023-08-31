@@ -15,27 +15,22 @@ export class TasksService {
     return result;
   }
 
-  findAll(query: Partial<ITask>) {
+  async findAll(query: Partial<ITask>) {
     return this.Tasks.find(query).toArray();
   }
 
-  findById(id: ObjectId) {
+  async findById(id: ObjectId) {
     const task = this.Tasks.findOne({ _id: id });
     if (!task) return new NotFoundException({ message: `Task with id: ${id} not found` });
     return task;
   }
 
-  // update(id: string, props: Partial<Omit<ITask, 'id' | 'createdAt'>>) {
-  //   const task = this.#tasks.find((task) => task.id === id);
-  //   if (!task) return new NotFoundException({ message: `Task with id: ${id} not found` });
-  //   Object.assign(task, props);
-  //   return task;
-  // }
+  async update(id: ObjectId, props: Partial<Omit<ITask, 'id' | 'createdAt'>>) {
+    const response = await this.Tasks.findOneAndUpdate({ _id: id }, { $set: props }, { returnDocument: 'after' });
+  }
 
-  // removeById(id: string) {
-  //   const task = this.#tasks.find((task) => task.id === id);
-  //   if (!task) return new NotFoundException({ message: `Task with id: ${id} not found` });
-  //   this.#tasks.splice(this.#tasks.indexOf(task), 1);
-  //   return task;
-  // }
+  async removeById(id: ObjectId) {
+    const response = await this.Tasks.findOneAndDelete({ _id: id });
+    return response?.value;
+  }
 }

@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb';
 import { PartialType } from '@nestjs/mapped-types';
 import { BadRequestException } from '@nestjs/common';
 import { Transform } from 'class-transformer';
-import { IsDate, IsNumber, IsOptional, IsUUID, Max, Min } from 'class-validator';
+import { IsDate, IsNumber, IsOptional, Max, Min } from 'class-validator';
 import { CreateTaskDto } from './create-task.dto.js';
 
 export class FindTaskDto extends PartialType(CreateTaskDto) {
@@ -22,10 +22,6 @@ export class FindTaskDto extends PartialType(CreateTaskDto) {
   @Max(10)
   @Min(0)
   readonly priority: number;
-
-  @IsOptional()
-  @IsUUID('4')
-  readonly id: string;
 
   @IsOptional()
   @Transform(({ value }) => new Date(value))

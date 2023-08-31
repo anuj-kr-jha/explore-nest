@@ -1,7 +1,9 @@
-import { Controller, Get, HttpCode, Query, Redirect } from '@nestjs/common';
+import { Controller, Get, HttpCode, Query, Redirect, UseInterceptors } from '@nestjs/common';
 import { AppService } from './app.service.js';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
-@Controller('')
+@Controller()
+// @UseInterceptors(CacheInterceptor)
 export class AppController {
   #appService: AppService;
   constructor(appService: AppService) {

@@ -1,15 +1,19 @@
 import { log } from 'console';
 import type { ObjectId } from 'mongodb';
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, UsePipes, ValidationPipe, Query, NotFoundException } from '@nestjs/common';
+import { CacheInterceptor } from '@nestjs/cache-manager';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, UsePipes, Query, UseInterceptors } from '@nestjs/common';
 import { TasksService } from './tasks.service.js';
 import { CreateTaskDto } from './dto/create-task.dto.js';
 import { UpdateTaskDto } from './dto/update-task.dto.js';
 import { FindTaskDto } from './dto/find-task.dto.js';
-import { Time } from '../global/decorators/decorator.time.js';
+import { time } from '../global/decorators/decorator.time.js';
 import { ValidateObjectIdField } from '../global/decorators/decorator.validateObjectId.js';
+import { sealed } from '../global/decorators/decorator.sealed.js';
 
 // @UsePipes(new ValidationPipe({ transform: true, whitelist: true })) // already set in main, so no need to set here
+@UseInterceptors(CacheInterceptor)
 @Controller({ path: 'tasks' })
+// @sealed
 export class TasksController {
   readonly #tasksService: TasksService;
   constructor(tasksService: TasksService) {
@@ -23,30 +27,29 @@ export class TasksController {
 
   @Get()
   @HttpCode(200)
-  // @Time()
   // @ValidateObjectIdField('_id')
+  @time()
   find(@Query() findTaskDto: FindTaskDto) {
     log('query', findTaskDto);
     return this.#tasksService.findAll(findTaskDto);
   }
 
   @Get('findById/:id')
-  // - @UsePipes(new ValidationPipe({ transform: true, exceptionFactory: () => new NotFoundException('Invalid ID') }))
   @ValidateObjectIdField()
-  @Time()
+  @time()
   findById(@Param('id') id: ObjectId) {
     return this.#tasksService.findById(id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-  //   log('param', id);
-  //   log('body', updateTaskDto);
-  //   return this.#tasksService.update(id, updateTaskDto);
-  // }
+  @Patch(':id')
+  @ValidateObjectIdField()
+  update(@Param('id') id: ObjectId, @Body() updateTaskDto: UpdateTaskDto) {
+    return this.#tasksService.update(id, updateTaskDto);
+  }
 
-  // @Delete('removeById/:id')
-  // removeById(@Param('id') id: string) {
-  //   return this.#tasksService.removeById(id);
-  // }
+  @Delete('removeById/:id')
+  @ValidateObjectIdField()
+  removeById(@Param('id') id: ObjectId) {
+    return this.#tasksService.removeById(id);
+  }
 }
