@@ -1,7 +1,6 @@
-import { log } from 'console';
 import type { ObjectId } from 'mongodb';
 import { CacheInterceptor } from '@nestjs/cache-manager';
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, UsePipes, Query, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, UsePipes, Query, UseInterceptors, Logger } from '@nestjs/common';
 import { TasksService } from './tasks.service.js';
 import { CreateTaskDto } from './dto/create-task.dto.js';
 import { UpdateTaskDto } from './dto/update-task.dto.js';
@@ -30,7 +29,7 @@ export class TasksController {
   // @ValidateObjectIdField('_id')
   @time()
   find(@Query() findTaskDto: FindTaskDto) {
-    log('query', findTaskDto);
+    Logger.log('hello moto', 'findTaskDto');
     return this.#tasksService.findAll(findTaskDto);
   }
 

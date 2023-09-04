@@ -3,7 +3,7 @@ import { AppService } from './app.service.js';
 import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Controller()
-// @UseInterceptors(CacheInterceptor)
+@UseInterceptors(CacheInterceptor)
 export class AppController {
   #appService: AppService;
   constructor(appService: AppService) {

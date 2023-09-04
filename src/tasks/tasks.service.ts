@@ -1,5 +1,5 @@
 import { Db, ObjectId } from 'mongodb';
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ITask } from './interfaces/tasks.interface.js';
 import { MONGODB_CONNECTION } from '../global/constant.js';
 @Injectable()
@@ -16,6 +16,7 @@ export class TasksService {
   }
 
   async findAll(query: Partial<ITask>) {
+    Logger.warn('hello moto', 'findAll');
     return this.Tasks.find(query).toArray();
   }
 

@@ -2,11 +2,13 @@ import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module.js';
 import { ValidationPipe } from '@nestjs/common';
+import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     // logger: ['error', 'warn', 'debug', 'log', 'verbose'],
     cors: true,
     snapshot: true,
+    bufferLogs: true,
   });
 
   // app.setGlobalPrefix('api'); // http://localhost:3000/api
@@ -19,7 +21,8 @@ async function bootstrap() {
     }),
     // NOTE: transform: set to true will have performance impact
   );
-  app.use;
+  app.useLogger(app.get(Logger));
+  app.useGlobalInterceptors(new LoggerErrorInterceptor());
   await app.listen(process.env.PORT!);
 }
 bootstrap();

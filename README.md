@@ -8,3 +8,4 @@
 6. [Provider](./.readme/5.provider.md)
 7. [Modules](./.readme/6.modules.md)
 8. [MIddleware](./.readme/7.middleware.md)
+9. [Logger](./.readme/8.logger.md)

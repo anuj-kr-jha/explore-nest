@@ -11,5 +11,5 @@
     "dist": true
   },
   "explorerExclude.backup": {},
-  "cSpell.words": ["swcrc"]
+  "cSpell.words": ["pino", "swcrc"]
 }
